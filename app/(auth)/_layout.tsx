@@ -16,28 +16,26 @@ import {
   
   export default function RootLayout() {
     const colorScheme = useColorScheme();
-    const [loaded, error] = useFonts({
-        'Outfit': require("../assets/fonts/Outfit.ttf"),
-      });
+    const [loaded] = useFonts({
+      SpaceMono: require("../../assets/fonts/SpaceMono-Regular.ttf"),
+    });
   
     useEffect(() => {
-      if (loaded || error) {
+      if (loaded) {
         SplashScreen.hideAsync();
       }
-    }, [loaded, error]);
+    }, [loaded]);
   
-    if (!loaded && !error) {
+    if (!loaded) {
       return null;
     }
   
     return (
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Stack>
-          <Stack.Screen options={{ headerShown: false }} name="index" />
-          <Stack.Screen options={{ title: "Oops!" }} name="+not-found" />
-          <Stack.Screen name="(auth)" options={{ headerShown: false, animation:"none" }} />
-          <Stack.Screen name="(root)" options={{ headerShown: false, animation:"none"  }} />
-          
+
+            <Stack.Screen name="sign-in" options={{ headerShown: false }} />
+            <Stack.Screen name="welcome" options={{ headerShown: false }} />
         </Stack>
       </ThemeProvider>
     );
